@@ -35,51 +35,53 @@ public class ChangeReturn {
     }
 
     private String computeChange(BigDecimal itemCost, BigDecimal money) {
-        BigDecimal hundredDollar = new BigDecimal(100);
-        BigDecimal fiftyDollar = new BigDecimal(50);
-        BigDecimal twentyDollar = new BigDecimal(20);
-        BigDecimal tenDollar = BigDecimal.TEN;
-        BigDecimal fiveDollar = new BigDecimal(5);
-        BigDecimal dollar = BigDecimal.ONE;
-        BigDecimal quarter = new BigDecimal(0.25);
-        BigDecimal dime = new BigDecimal(0.10);
-        BigDecimal nickel = new BigDecimal(0.05);
-        BigDecimal penny = new BigDecimal(0.01);
+        BigDecimal hundredDollar = new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal fiftyDollar = new BigDecimal(50).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal twentyDollar = new BigDecimal(20).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal tenDollar = new BigDecimal(10).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal fiveDollar = new BigDecimal(5).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal dollar = new BigDecimal(1).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal quarter = new BigDecimal(0.25).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal dime = new BigDecimal(0.10).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal nickel = new BigDecimal(0.05).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal penny = new BigDecimal(0.01).setScale(2,RoundingMode.HALF_EVEN);
         BigDecimal difference = itemCost.subtract(money).abs();
         StringBuilder change = new StringBuilder();
         while (difference.compareTo(BigDecimal.ZERO) > 0) {
             if (difference.compareTo(hundredDollar) >= 0)
-                difference = processDifference(hundredDollar, difference, change);
+                difference = processDifference(hundredDollar, difference, change,"Hundred Dollar");
             else if (difference.compareTo(fiftyDollar) >= 0)
-                difference = processDifference(fiftyDollar, difference, change);
+                difference = processDifference(fiftyDollar, difference, change,"Fifty Dollar");
             else if (difference.compareTo(twentyDollar) >= 0)
-                difference = processDifference(twentyDollar, difference, change);
+                difference = processDifference(twentyDollar, difference, change,"Twenty Dollar");
             else if (difference.compareTo(tenDollar) >= 0)
-                difference = processDifference(tenDollar, difference, change);
+                difference = processDifference(tenDollar, difference, change,"Ten Dollar");
             else if (difference.compareTo(fiveDollar) >= 0)
-                difference = processDifference(fiveDollar, difference, change);
+                difference = processDifference(fiveDollar, difference, change,"Five Dollar");
             else if (difference.compareTo(dollar) >= 0)
-                difference = processDifference(dollar, difference, change);
+                difference = processDifference(dollar, difference, change,"One Dollar");
             else if (difference.compareTo(quarter) >= 0)
-                difference = processDifference(quarter, difference, change);
+                difference = processDifference(quarter, difference, change,"Quarter");
             else if (difference.compareTo(dime) >= 0)
-                difference = processDifference(dime, difference, change);
+                difference = processDifference(dime, difference, change,"Dime");
             else if (difference.compareTo(nickel) >= 0)
-                difference = processDifference(nickel, difference, change);
+                difference = processDifference(nickel, difference, change,"Nickel");
             else if (difference.compareTo(penny) >= 0)
-                difference = processDifference(penny, difference, change);
+                difference = processDifference(penny, difference, change,"Penny");
         }
         return String.valueOf(change);
     }
 
-    private BigDecimal processDifference(BigDecimal currency, BigDecimal difference, StringBuilder change) {
-        System.out.println(difference+" - "+currency);
-        BigDecimal result = difference.divide(currency,0,RoundingMode.HALF_EVEN).setScale(0,RoundingMode.FLOOR);//, difference.toString().length() + 2, RoundingMode.UP);
-        System.out.println(result);
+    private BigDecimal processDifference(BigDecimal currency, BigDecimal difference, StringBuilder change, String currencyType) {
+        currency = currency.setScale(2,RoundingMode.HALF_EVEN);
+        //System.out.println(difference+" - "+currency);
+        //BigDecimal result = difference.compareTo(BigDecimal.ONE) <0 ?  difference.divide(currency,2,RoundingMode.FLOOR) : difference.divide(currency,0,RoundingMode.FLOOR);
+        BigDecimal result = difference.divide(currency,0,RoundingMode.FLOOR);
+        //System.out.println(result);
         if (result.compareTo(BigDecimal.ONE) >= 0) {
             difference = difference.subtract(result.multiply(currency)).abs();
-            System.out.println("after - "+difference);
-            change.append(result + " $" + currency + " bills");
+            //System.out.println("after - "+difference);
+            change.append("\n"+result + " "+currencyType+"(s) ($ " + currency + ")");
         }
         return difference;
     }

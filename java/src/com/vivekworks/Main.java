@@ -1,7 +1,11 @@
+/**
+ * Purpose - Main program to call all the programs under Numbers section
+ * Author  - Vivek T S
+ * Date    - 20/11/2018
+ */
 package com.vivekworks;
 
 import com.vivekworks.numbers.*;
-
 import java.util.Scanner;
 public class Main {
 
@@ -19,6 +23,7 @@ public class Main {
         System.out.println("6. Cost of Tiles");
         System.out.println("7. Mortgage Calculator");
         System.out.println("8. Change Return");
+        System.out.println("9. Binary And Decimal Converter");
         System.out.println("99. Exit");
         System.out.print("Choose a program number to run--> ");
         int programNo = programInput.nextInt();
@@ -38,6 +43,8 @@ public class Main {
             case 7 : mortgageCalculator();
                 break;
             case 8 : changeReturn();
+                break;
+            case 9 : binaryAndDecimalConverter();
                 break;
             case 99: System.out.println("Goodbye!");
                 break;
@@ -79,5 +86,9 @@ public class Main {
 
     public void changeReturn(){
         System.out.println(new ChangeReturn().returnChange());
+    }
+
+    public void binaryAndDecimalConverter(){
+        System.out.println(new BinaryAndDecimalConverter().runConverter());
     }
 }
