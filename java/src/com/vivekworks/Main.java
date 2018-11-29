@@ -24,6 +24,8 @@ public class Main {
         System.out.println("7. Mortgage Calculator");
         System.out.println("8. Change Return");
         System.out.println("9. Binary And Decimal Converter");
+        System.out.println("10. Calculator");
+        System.out.println("11. Unit Converter");
         System.out.println("99. Exit");
         System.out.print("Choose a program number to run--> ");
         int programNo = programInput.nextInt();
@@ -45,6 +47,10 @@ public class Main {
             case 8 : changeReturn();
                 break;
             case 9 : binaryAndDecimalConverter();
+                break;
+            case 10 : calculator();
+                break;
+            case 11 : unitConverter();
                 break;
             case 99: System.out.println("Goodbye!");
                 break;
@@ -90,5 +96,13 @@ public class Main {
 
     public void binaryAndDecimalConverter(){
         System.out.println(new BinaryAndDecimalConverter().runConverter());
+    }
+
+    public void calculator(){
+        System.out.println(new Calculator().runCalculator());
+    }
+
+    public void unitConverter(){
+        System.out.println(new UnitConverter().runConverter());
     }
 }

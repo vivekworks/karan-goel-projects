@@ -23,9 +23,9 @@ public class ChangeReturn {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("Enter the cost --> ");
-            BigDecimal itemCost = new BigDecimal(reader.readLine());
+            BigDecimal itemCost = new BigDecimal(reader.readLine()).setScale(2,RoundingMode.HALF_EVEN);
             System.out.print("Enter the money --> ");
-            BigDecimal money = new BigDecimal(reader.readLine());
+            BigDecimal money = new BigDecimal(reader.readLine()).setScale(2,RoundingMode.HALF_EVEN);
             reader.close();
             return computeChange(itemCost, money);
         } catch (IOException ioe) {
