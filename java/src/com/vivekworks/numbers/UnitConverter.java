@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.util.Scanner;
 
 public class UnitConverter {
@@ -105,7 +103,7 @@ public class UnitConverter {
     public class CurrencyConverter {
         String fromCurrency, toCurrency, amount;
         URL url;
-
+        String ACCESS_KEY = "";
         public double convert() {
             displayList();
             getData();
@@ -153,13 +151,14 @@ public class UnitConverter {
         }
 
         public String getURL() {
-            return "http://apilayer.net/api/live?access_key=987aed9c8600798f197c45f76f5286c0&currencies=" + fromCurrency + "," + toCurrency;
+            return "http://apilayer.net/api/live?access_key="+ACCESS_KEY+"&currencies=" + fromCurrency + "," + toCurrency;
         }
 
         public String callAPI() {
             String response = "";
             try {
-                URLConnection urlConn = url.openConnection();
+                Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("10.177.38.133", 80));
+                URLConnection urlConn = url.openConnection(proxy);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
                 String line = "";
                 StringBuilder outputBuilder = new StringBuilder();

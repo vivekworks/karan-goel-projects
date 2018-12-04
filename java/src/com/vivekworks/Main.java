@@ -6,11 +6,15 @@
 package com.vivekworks;
 
 import com.vivekworks.numbers.*;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
         new Main().begin();
+        //System.out.println(Calendar.getInstance().getTimeInMillis());
     }
 
     public void begin(){
@@ -26,6 +30,12 @@ public class Main {
         System.out.println("9. Binary And Decimal Converter");
         System.out.println("10. Calculator");
         System.out.println("11. Unit Converter");
+        System.out.println("12. Alarm Clock");
+        System.out.println("13. Distance between two cities");
+        System.out.println("14. Credit card validator");
+        System.out.println("15. Tax Calculator");
+        System.out.println("16. The Factorial");
+        System.out.println("17. Complex Number");
         System.out.println("99. Exit");
         System.out.print("Choose a program number to run--> ");
         int programNo = programInput.nextInt();
@@ -51,6 +61,18 @@ public class Main {
             case 10 : calculator();
                 break;
             case 11 : unitConverter();
+                break;
+            case 12 : alarmClock();
+                break;
+            case 13 : distanceBetweenCities();
+                break;
+            case 14 : creditCardValidator();
+                break;
+            case 15 : taxCalculator();
+                break;
+            case 16 : factorial();
+                break;
+            case 17 : complexNumber();
                 break;
             case 99: System.out.println("Goodbye!");
                 break;
@@ -104,5 +126,29 @@ public class Main {
 
     public void unitConverter(){
         System.out.println(new UnitConverter().runConverter());
+    }
+
+    public void alarmClock(){
+        new AlarmClock().runAlarmClock();
+    }
+
+    public void distanceBetweenCities(){
+        System.out.println(new DistanceBetweenCities().begin());
+    }
+
+    public void creditCardValidator(){
+        System.out.println(new CreditCardValidator().begin());
+    }
+
+    public void taxCalculator(){
+        System.out.println(new TaxCalculator().begin());
+    }
+
+    public void factorial(){
+        System.out.println(new Factorial().begin());
+    }
+
+    public void complexNumber(){
+        new ComplexNumber().begin();
     }
 }
