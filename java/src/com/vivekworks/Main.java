@@ -14,20 +14,19 @@ public class Main {
 
     public static void main(String[] args) {
         new Main().begin();
-        //System.out.println(Calendar.getInstance().getTimeInMillis());
     }
 
     public void begin(){
         Scanner programInput = new Scanner(System.in);
-        System.out.println("1. Pi to Nth Digit");
-        System.out.println("2. e to Nth Digit");
-        System.out.println("3. Fibonacci Sequence");
-        System.out.println("4. Prime Factors");
-        System.out.println("5. Next Prime Number");
-        System.out.println("6. Cost of Tiles");
-        System.out.println("7. Mortgage Calculator");
-        System.out.println("8. Change Return");
-        System.out.println("9. Binary And Decimal Converter");
+        System.out.println("01. Pi to Nth Digit");
+        System.out.println("02. e to Nth Digit");
+        System.out.println("03. Fibonacci Sequence");
+        System.out.println("04. Prime Factors");
+        System.out.println("05. Next Prime Number");
+        System.out.println("06. Cost of Tiles");
+        System.out.println("07. Mortgage Calculator");
+        System.out.println("08. Change Return");
+        System.out.println("09. Binary And Decimal Converter");
         System.out.println("10. Calculator");
         System.out.println("11. Unit Converter");
         System.out.println("12. Alarm Clock");
@@ -36,6 +35,8 @@ public class Main {
         System.out.println("15. Tax Calculator");
         System.out.println("16. The Factorial");
         System.out.println("17. Complex Number");
+        System.out.println("18. Happy Numbers");
+        System.out.println("19. Number Names");
         System.out.println("99. Exit");
         System.out.print("Choose a program number to run--> ");
         int programNo = programInput.nextInt();
@@ -73,6 +74,10 @@ public class Main {
             case 16 : factorial();
                 break;
             case 17 : complexNumber();
+                break;
+            case 18 : happyNumbers();
+                break;
+            case 19 : numberNames();
                 break;
             case 99: System.out.println("Goodbye!");
                 break;
@@ -150,5 +155,13 @@ public class Main {
 
     public void complexNumber(){
         new ComplexNumber().begin();
+    }
+
+    public void happyNumbers(){
+        new HappyNumbers().begin();
+    }
+
+    public void numberNames(){
+        System.out.println(new NumberNames().begin());
     }
 }
