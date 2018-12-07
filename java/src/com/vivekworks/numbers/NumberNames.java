@@ -3,6 +3,14 @@
  * Author  - Vivek T S
  * Date    - 05/12/2018
  * System  - Indian System
+ * 1. Ones
+ * 2. Tens
+ * 3. Hundreds
+ * 4. Thousands
+ * 5. Ten Thousands
+ * 6. Lakhs
+ * 7. Ten Lakhs
+ * 8. Crores
  */
 package com.vivekworks.numbers;
 
@@ -10,77 +18,103 @@ import java.util.Scanner;
 
 public class NumberNames {
     public String begin() {
-        System.out.print("Enter a number --> ");
+        System.out.print("Enter an integer (upto 11 digits) --> ");
         Scanner input = new Scanner(System.in);
         long number = input.nextLong();
+        if (number > 99999999999L)
+            return "The number should not be more than 11 digits!!!";
         return getNumberNames(number);
     }
 
     public String getNumberNames(long number) {
+        if(number == 0) return "Zero";
         StringBuilder numberNames = new StringBuilder();
-        char[] numberArray = String.valueOf(number).toCharArray();
+        char[] numberArray = String.valueOf(Math.abs(number)).toCharArray();
         for (int i = 0; i < numberArray.length; i++) {
-            int digit = numberArray[i] - '0';
-            if ((numberArray.length - i - 1) != 0 && (numberArray.length - i - 1) != 1 && (numberArray.length - i - 1) != 2) {
-                if ((numberArray.length - i - 1)%2 == 1) {
-                    if (i-1>=0 && numberArray[i -1] - '0' == 1)
-                        continue;
-                    else {
-                        if(getOnesNames(numberArray[i] - '0') != null)
-                            numberNames.append(getOnesNames(numberArray[i] - '0'));
-                    }
-                } else{
-                    if(digit ==1) {
-                        if(getTeensNames(numberArray[i + 1] - '0') != null)
-                            numberNames.append(getTeensNames(numberArray[i + 1] - '0'));
-                    }
-                    else {
-                        if(getOnesNames(numberArray[i] - '0') != null)
-                            numberNames.append(getOnesNames(numberArray[i] - '0'));
-                    }
+            int digit = numberArray[i] != '\0' ? numberArray[i] - '0' : numberArray[i];
+            int digitPosition = numberArray.length - (i + 1);
+            if (digitPosition > 2 ? (digitPosition % 2 == 0) : (digitPosition % 2 == 1)) {
+                if (digitPosition % 7 == 1 && numberNames.length() != 0 && (digit != 0 || (numberArray[i + 1] - '0' != 0))) {
+                    numberNames.append("and ");
                 }
-            } else if ((numberArray.length - i - 1) == 2) {
-                if(getOnesNames(numberArray[i] - '0') != null)
-                    numberNames.append(getOnesNames(numberArray[i] - '0'));
-            }
-             else if ((numberArray.length - i - 1) == 1) {
                 if (digit == 1) {
-                    if(getTeensNames(numberArray[i + 1] - '0') != null)
-                        numberNames.append(getTeensNames(numberArray[i + 1] - '0'));
+                    numberNames.append(getWords('E', numberArray[i + 1] - '0'));
+                    numberArray[i + 1] = '\0';
+                } else {
+                    if (digitPosition != 2 && digitPosition != 10) {
+                        numberNames.append(getWords('T', digit));
+                    } else {
+                        numberNames.append(getWords('O', digit));
+                    }
                 }
-                else {
-                    if(getTensNames(numberArray[i] - '0') != null)
-                        numberNames.append(getTensNames(numberArray[i] - '0'));
-                }
-            } else if ((numberArray.length - i - 1) == 0) {
-                if (numberArray[i - 1] - '0' != 1) {
-                    if(getOnesNames(numberArray[i] - '0') != null)
-                        numberNames.append(getOnesNames(numberArray[i] - '0'));
+            } else {
+                if (digit != '\0') {
+                    if (digit == 1 && digitPosition != 0) {
+                        if (digitPosition == 2 || digitPosition == 10) {
+                            numberNames.append(getWords('O', numberArray[i] - '0'));
+                        } else {
+                            if (digitPosition > 2 ? (digitPosition % 2 == 1) : (digitPosition % 2 == 0))
+                                numberNames.append(getWords('O', digit));
+                            else
+                                numberNames.append(getWords('E', numberArray[i + 1] - '0'));
+                        }
+                    } else {
+                        numberNames.append(getWords('O', digit));
+                    }
                 }
             }
-             if(getMetricNames(i) != null)
-                 numberNames.append(getMetricNames(i));
+
+            if (getMetricNames(digitPosition) != "" && ((digitPosition == 2 && digit != 0) || (digitPosition != 2)) && ((digitPosition == 10 && digit != 0) || (digitPosition != 10))) {
+                numberNames.append(getWords('M', digitPosition));
+            }
         }
-        return String.valueOf(numberNames);
+        return number > 0 ? String.valueOf(numberNames).trim() : "Negative "+String.valueOf(numberNames).trim();
+    }
+
+    public String getWords(char type, int value) {
+        String word = "";
+        switch (type) {
+            case 'E':
+                word = getTeensNames(value);
+                break;
+            case 'T':
+                word = getTensNames(value);
+                break;
+            case 'O':
+                word = getOnesNames(value);
+                break;
+            case 'M':
+                word = getMetricNames(value);
+                break;
+        }
+        if (word != null && !word.equals("")) {
+            word += " ";
+        }
+        return word;
     }
 
     public String getMetricNames(int index) {
-        switch (index) {
-            case 2:
-                return "Hundred";
-            case 3:
-                return "Thousand";
-            case 4:
-                return null;
-            case 5:
-                return "Lakh";
-            case 6:
-                return null;
-            case 7:
-                return "Crore";
-            default:
-                return null;
+        if (index > 0) {
+            switch (index % 7) {
+                case 1:
+                    return "";
+                case 2:
+                    return "Hundred";
+                case 3:
+                    return "Thousand";
+                case 4:
+                    return "";
+                case 5:
+                    return "Lakh";
+                case 6:
+                    return "";
+                case 0:
+                    return "Crore";
+                default:
+                    return "";
+            }
         }
+        return "";
     }
 
     public String getTensNames(int value) {
@@ -102,7 +136,7 @@ public class NumberNames {
             case 9:
                 return "Ninety";
             default:
-                return null;
+                return "";
         }
     }
 
@@ -129,7 +163,7 @@ public class NumberNames {
             case 10:
                 return "Ten";
             default:
-                return null;
+                return "";
         }
     }
 
@@ -153,8 +187,10 @@ public class NumberNames {
                 return "Eighteen";
             case 9:
                 return "Nineteen";
+            case 0:
+                return "Ten";
             default:
-                return null;
+                return "";
         }
     }
 }

@@ -16,7 +16,7 @@ public class Main {
         new Main().begin();
     }
 
-    public void begin(){
+    private void begin(){
         Scanner programInput = new Scanner(System.in);
         System.out.println("01. Pi to Nth Digit");
         System.out.println("02. e to Nth Digit");
@@ -37,6 +37,8 @@ public class Main {
         System.out.println("17. Complex Number");
         System.out.println("18. Happy Numbers");
         System.out.println("19. Number Names");
+        System.out.println("20. Coin Flip Simulation");
+        System.out.println("21. Limit Calculator");
         System.out.println("99. Exit");
         System.out.print("Choose a program number to run--> ");
         int programNo = programInput.nextInt();
@@ -79,89 +81,101 @@ public class Main {
                 break;
             case 19 : numberNames();
                 break;
+            case 20 : coinFlipSimulator();
+                break;
+            case 21 : limitCalculator();
+                break;
             case 99: System.out.println("Goodbye!");
                 break;
             default: System.out.println("Wrong option!");
         }
     }
 
-    public void piToNthDigit(){
+    private void piToNthDigit(){
         PiToNthDigit piProgram = new PiToNthDigit();
         System.out.println(piProgram.beginPi());
     }
 
-    public void etoNthDigit(){
+    private void etoNthDigit(){
         EToNthDigit eProgram = new EToNthDigit();
         System.out.println(eProgram.beginE());
     }
 
-    public void fibonacciSequence(){
+    private void fibonacciSequence(){
         FibonacciSequence fiboProgram = new FibonacciSequence();
         System.out.println(fiboProgram.beginFibonacci());
     }
 
-    public void primeFactors(){
+    private void primeFactors(){
         PrimeFactors primeFactorProgram = new PrimeFactors();
         System.out.println(primeFactorProgram.getPrimeFactors());
     }
 
-    public void nextPrimeNumber(){
+    private void nextPrimeNumber(){
         new NextPrimeNumber().getNextPrime();
     }
 
-    public void costOfTiles(){
+    private void costOfTiles(){
         System.out.println(new CostOfTile().getCost());
     }
 
-    public void mortgageCalculator(){
+    private void mortgageCalculator(){
         new MortgageCalculator().calculateMortgage();
     }
 
-    public void changeReturn(){
+    private void changeReturn(){
         System.out.println(new ChangeReturn().returnChange());
     }
 
-    public void binaryAndDecimalConverter(){
+    private void binaryAndDecimalConverter(){
         System.out.println(new BinaryAndDecimalConverter().runConverter());
     }
 
-    public void calculator(){
+    private void calculator(){
         System.out.println(new Calculator().runCalculator());
     }
 
-    public void unitConverter(){
+    private void unitConverter(){
         System.out.println(new UnitConverter().runConverter());
     }
 
-    public void alarmClock(){
+    private void alarmClock(){
         new AlarmClock().runAlarmClock();
     }
 
-    public void distanceBetweenCities(){
+    private void distanceBetweenCities(){
         System.out.println(new DistanceBetweenCities().begin());
     }
 
-    public void creditCardValidator(){
+    private void creditCardValidator(){
         System.out.println(new CreditCardValidator().begin());
     }
 
-    public void taxCalculator(){
+    private void taxCalculator(){
         System.out.println(new TaxCalculator().begin());
     }
 
-    public void factorial(){
+    private void factorial(){
         System.out.println(new Factorial().begin());
     }
 
-    public void complexNumber(){
+    private void complexNumber(){
         new ComplexNumber().begin();
     }
 
-    public void happyNumbers(){
+    private void happyNumbers(){
         new HappyNumbers().begin();
     }
 
-    public void numberNames(){
+    private void numberNames(){
         System.out.println(new NumberNames().begin());
+    }
+    
+    public void coinFlipSimulator(){
+        System.out.println(new CoinFlipSimulator().begin());
+    }
+
+    public void limitCalculator(){
+        System.out.println(new LimitCalculator().begin());
     }
 }
