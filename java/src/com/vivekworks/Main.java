@@ -7,8 +7,6 @@ package com.vivekworks;
 
 import com.vivekworks.numbers.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 public class Main {
 
@@ -39,8 +37,9 @@ public class Main {
         System.out.println("19. Number Names");
         System.out.println("20. Coin Flip Simulation");
         System.out.println("21. Limit Calculator");
+        System.out.println("22. Fast Exponentiation");
         System.out.println("99. Exit");
-        System.out.print("Choose a program number to run--> ");
+        System.out.print("Choose a program number to run --> ");
         int programNo = programInput.nextInt();
         switch(programNo){
             case 1 : piToNthDigit();
@@ -84,6 +83,8 @@ public class Main {
             case 20 : coinFlipSimulator();
                 break;
             case 21 : limitCalculator();
+                break;
+            case 22 : fastExponentiation();
                 break;
             case 99: System.out.println("Goodbye!");
                 break;
@@ -170,12 +171,16 @@ public class Main {
     private void numberNames(){
         System.out.println(new NumberNames().begin());
     }
-    
-    public void coinFlipSimulator(){
+
+    private void coinFlipSimulator(){
         System.out.println(new CoinFlipSimulator().begin());
     }
 
-    public void limitCalculator(){
+    private void limitCalculator(){
         System.out.println(new LimitCalculator().begin());
+    }
+
+    private void fastExponentiation(){
+        System.out.println(new FastExponentiation().begin());
     }
 }

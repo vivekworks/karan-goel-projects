@@ -5,35 +5,61 @@
  */
 package com.vivekworks.numbers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LimitCalculator {
-    public String begin(){
+    public double begin() {
         System.out.println("Use ^ for the 'to the power of' relation. Enter x as the variable and not others");
-        System.out.print("Enter the equation : f(x)        --> ");
+        System.out.print("Enter the equation in   : f(x)        --> ");
         Scanner input = new Scanner(System.in);
-        String equation = input.nextLine();
-        System.out.print("Enter the limit    : lim x ->    --> ");
+        String equation = input.nextLine().toLowerCase();
+        System.out.print("Enter an integer limit  : lim x ->    --> ");
         int limit = input.nextInt();
-        return calculate(equation,limit);
+        return calculate(equation, limit);
     }
 
-    public String calculate(String equation, int limit){
-        //char[] equationArray = equation.toCharArray();
-        double output=0.0,buffer=0.0;
-        String[] strArray = equation.substring(0,1).equals("-") ? equation.substring(1).split("\\+") : equation.split("\\+");
-        for(String val :strArray){
-
+    public double calculate(String equation, int limit) {
+        ArrayList<String> subEquationList = new ArrayList<>();
+        String[] subEquationArray = equation.split("\\+");
+        for(int i=0;i<subEquationArray.length;i++){
+            segregate(subEquationList,"\\+",subEquationArray[i].trim());
         }
-        /*for(int i=0;i<equationArray.length;i++){
-            System.out.println(equationArray[i]);
-            if(equationArray[i]-'0' >=0 && equationArray[i]-'0' <= 9)
-                buffer =equationArray[i];
-        }*/
-        return null;
+        for(int i=0;i<subEquationList.size();i++){
+            String val = subEquationList.get(0);
+            subEquationList.remove(val);
+            segregate(subEquationList,"-",val);
+        }
+        double sum=0;
+        for(String row :subEquationList){
+            sum = sum+processSubEquations(row,limit);
+        }
+        return sum;
     }
 
-    public String segregate(String module, String operation){
-        return null;
+    public double processSubEquations(String subEquation,int limit){
+        double n1=0,n2=0;
+        if(subEquation.indexOf('x') > 0){
+            if(subEquation.indexOf('^') > 0){
+                n1 = Math.pow(limit,Double.parseDouble(subEquation.substring(subEquation.indexOf('^')+1)));
+            } else{
+                n1 = limit;
+            }
+            n2 = n1 * Double.parseDouble(subEquation.substring(0,subEquation.indexOf('x')));
+        } else{
+            n2 = Double.parseDouble(subEquation);
+        }
+        return n2;
+    }
+
+    public void segregate(ArrayList<String> subEquationList, String operation, String subEquation){
+        boolean signFlag = subEquation.substring(0,1).trim().equalsIgnoreCase("-");
+        String[] subEquationArray = subEquation.split(operation);
+        for(int i=0;i<subEquationArray.length;i++){
+            String val = subEquationArray[i].trim();
+            if(val != null && !(val.equals(""))) {
+                subEquationList.add( i==1 && signFlag ? "-"+val:(operation.equals("-") && (i!=0) ? "-"+val: val));
+            }
+        }
     }
 }
